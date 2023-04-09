@@ -26,11 +26,17 @@ Cards Scheme:
 
 int main()
 {
+
   printf("Deu Certo! \n");
   stack red, blue, yellow, green, main, special;
 
   stack *all_stacks[6] = {&red, &blue, &yellow, &green, &main, &special};
   stack *main_deck[1] = {&main};
+  int numOfPlayers;
+  printf("Qual o numero de jogadores\n");
+  scanf("%d", &numOfPlayers);
+  char players[numOfPlayers][60];
+  getsPlayerName(numOfPlayers, players);
 
   init_mult_stacks(all_stacks, 6);
 

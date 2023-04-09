@@ -201,4 +201,17 @@ void random_decks(stack *red, stack *blue, stack *green, stack *yellow, stack *s
     }
 }
 
+void getsPlayerName(int numOfPlayers, char players[][60])
+{
+    for (int i = 0; i < numOfPlayers; i++)
+    {
+        printf("Qual o nome do jogador %d\n", i + 1);
+        scanf(" %[^\n]s", players[i]);
+    }
+    for (int i = 0; i < numOfPlayers; i++)
+    {
+        printf("Bem vindo jogador %s\n", players[i]);
+    }
+}
+
 #endif
