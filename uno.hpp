@@ -4,9 +4,11 @@
 #include "stack.hpp"
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
+using namespace std;
 
 // Normal Cards
-void deck_init(stack *my_deck, int cor)
+void create_cards(stack *my_deck, int cor)
 {
     deck cards[TAM_MAX_COLOR];
     cards[0].number = 0;
@@ -50,7 +52,7 @@ void deck_init(stack *my_deck, int cor)
 }
 
 // Special Cards
-void special_init(stack *my_deck, int cor)
+void create_special(stack *my_deck, int cor)
 {
     deck cards[8];
 
@@ -73,47 +75,50 @@ void special_init(stack *my_deck, int cor)
     }
 }
 
-void randomize_color_deck(stack *color)
-{
-    stack aux1, aux2, aux3, aux4;
-    deck card;
-
-    init_stack(&aux1);
-    init_stack(&aux2);
-    init_stack(&aux3);
-    init_stack(&aux4);
-    srand(time(NULL));
-
-    while (!is_hollow(color))
+void randomize_color_deck(stack *piles[], int n)
+{ // stack*color
+    for (int i = 0; i < n; i++)
     {
-        int random_number = rand() % 4;
-        switch (random_number)
+        stack *color = piles[i];
+        stack aux1, aux2, aux3, aux4;
+        deck card;
+
+        stack *all_stacks[4] = {&aux1, &aux2, &aux3, &aux4};
+        init_mult_stacks(all_stacks, 4);
+
+        srand(time(NULL));
+
+        while (!is_hollow(color))
         {
-        case 0:
-            pop(color, &card);
-            push(&aux1, card);
-            break;
+            int random_number = rand() % 4;
+            switch (random_number)
+            {
+            case 0:
+                pop(color, &card);
+                push(&aux1, card);
+                break;
 
-        case 1:
-            pop(color, &card);
-            push(&aux2, card);
-            break;
+            case 1:
+                pop(color, &card);
+                push(&aux2, card);
+                break;
 
-        case 2:
-            pop(color, &card);
-            push(&aux3, card);
-            break;
+            case 2:
+                pop(color, &card);
+                push(&aux3, card);
+                break;
 
-        case 3:
-            pop(color, &card);
-            push(&aux4, card);
-            break;
+            case 3:
+                pop(color, &card);
+                push(&aux4, card);
+                break;
+            }
         }
+        stack_to_stack(&aux1, color);
+        stack_to_stack(&aux2, color);
+        stack_to_stack(&aux3, color);
+        stack_to_stack(&aux4, color);
     }
-    stack_to_stack(&aux1, color);
-    stack_to_stack(&aux2, color);
-    stack_to_stack(&aux3, color);
-    stack_to_stack(&aux4, color);
 }
 
 void random_decks(stack *red, stack *blue, stack *green, stack *yellow, stack *special, stack *maindeck)

@@ -14,35 +14,49 @@
   black = 4 (switch color && +4)
 */
 
+/*
+Cards Scheme:
+  0 ~ 9 = Normal Cards
+  10 = Block Cards (@)
+  11 = Reverse Cards (%)
+  12 =  +2 Cards (+2)
+  13 = Switch Color (SC)
+  14 = +4 && Switch Color Card (+4 SC)
+*/
+
 int main()
 {
-    printf("Deu Certo!\n");
-    stack red, blue, yellow, green, main, special;
+  printf("Deu Certo! \n");
+  stack red, blue, yellow, green, main, special;
 
-    init_stack(&red);
-    init_stack(&blue);
-    init_stack(&yellow);
-    init_stack(&green);
-    init_stack(&main);
-    init_stack(&special);
+  stack *all_stacks[6] = {&red, &blue, &yellow, &green, &main, &special};
+  stack *main_deck[1] = {&main};
 
-    deck_init(&red, 0);
-    deck_init(&blue, 1);
-    deck_init(&yellow, 2);
-    deck_init(&green, 3);
-    special_init(&special, 4);
+  init_mult_stacks(all_stacks, 6);
 
-    randomize_color_deck(&red);
-    randomize_color_deck(&blue);
-    randomize_color_deck(&green);
-    randomize_color_deck(&yellow);
-    randomize_color_deck(&special);
+  create_cards(&red, 0);
+  create_cards(&blue, 1);
+  create_cards(&yellow, 2);
+  create_cards(&green, 3);
+  create_special(&special, 4);
 
-    random_decks(&red, &blue, &green, &yellow, &special, &main);
+  randomize_color_deck(all_stacks, 5);
+  // randomize_color_deck(&red);
+  // randomize_color_deck(&blue);
+  // randomize_color_deck(&green);
+  // randomize_color_deck(&yellow);
+  // randomize_color_deck(&special);
 
-    randomize_color_deck(&main);
-    randomize_color_deck(&main);
-    print_stack(main);
+  random_decks(&red, &blue, &green, &yellow, &special, &main);
 
-    return 0;
+  randomize_color_deck(main_deck, 1);
+  randomize_color_deck(main_deck, 1);
+  randomize_color_deck(main_deck, 1);
+  print_stack(main);
+
+  print_colorful_stack_in_cards_style(main);
+
+  // Self explanatory named function.
+  // This function needs windows.h lib!
+  return 0;
 }
