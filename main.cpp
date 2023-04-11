@@ -44,7 +44,8 @@ int main()
   create_cards(&blue, 1);
   create_cards(&yellow, 2);
   create_cards(&green, 3);
-  create_special(&special, 4);
+  create_special(&special);
+  print_stack(special);
 
   randomize_color_deck(all_stacks, 5);
   // randomize_color_deck(&red);

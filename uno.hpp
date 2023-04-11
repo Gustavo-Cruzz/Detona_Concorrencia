@@ -52,11 +52,11 @@ void create_cards(stack *my_deck, int cor)
 }
 
 // Special Cards
-void create_special(stack *my_deck, int cor)
+void create_special(stack *my_deck)
 {
     deck cards[8];
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i <= 3; i++)
     {
         cards[i].number = 13;
         cards[i].color = 4;
